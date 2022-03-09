@@ -5,10 +5,10 @@ const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
-    const products = await prisma.product.findMany();
+    const categories = await prisma.category.findMany();
     return res.json({
         success: true,
-        data: products,
+        data: categories,
         message: null,
     });
 });

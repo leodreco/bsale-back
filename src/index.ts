@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import ProductController from './controllers/ProductController';
+import apiRoutes from './apiRoutes';
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ const app: Express = express();
 
 app.use(bodyParser.json());
 
-app.use('/api/product', ProductController);
+app.use('/api', apiRoutes);
 
 app.use('*', (req, res) => {
     return res.status(404).json({
