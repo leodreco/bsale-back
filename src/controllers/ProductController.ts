@@ -4,15 +4,18 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-    let skip = Number(req.query.skip ?? 0);
-    let take = Number(req.query.take ?? 10);
-
     const prisma = new PrismaClient();
+
     const products = await prisma.product.findMany({
-        skip,
-        take,
+        skip: req.skip,
+        take: req.take,
+        where: req.filters,
+        orderBy: req.orderBy,
     });
-    let count = await prisma.product.count();
+
+    let count = await prisma.product.count({
+        where: req.filters,
+    });
 
     return res.json({
         success: true,
