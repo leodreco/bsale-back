@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../db/prismaClient';
 import { Router, Request, Response } from 'express';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-    const prisma = new PrismaClient();
-
     try{
         const categories = await prisma.category.findMany({
             skip: req.skip,
@@ -17,6 +15,8 @@ router.get('/', async (req: Request, res: Response) => {
         let totalRows = await prisma.category.count({
             where: req.filters,
         });
+
+        await prisma.$disconnect();
 
         return res.json({
             success: true,
