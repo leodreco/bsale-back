@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { isNumberObject } from 'util/types';
 
 function filterMiddleware(req: Request, res: Response, next: NextFunction){
     req.skip = Number(req.query.skip ?? 0);
@@ -37,7 +38,7 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
             for(let fieldName in lazy.filters){
                 let filter = lazy.filters[fieldName];
                 req.filters[fieldName] = {};
-                req.filters[fieldName][filter.matchMode] = filter.value;
+                req.filters[fieldName][filter.matchMode] = Number.isNaN(filter.value) ? Number(filter.value) : filter.value;
             }
         }
         if(!!lazy.sortField){
@@ -48,7 +49,6 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
             }
         }
     }
-
     next();
 }
 
