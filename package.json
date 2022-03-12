@@ -4,9 +4,10 @@
   "description": "Api rest en typescript con el ORM Prisma.js",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon --files src/index.ts",
-    "prisma": "npx prisma generate",
-    "build": "tsc"
+    "start": "node dist/index.js",
+    "test": "nodemon --files src/index.ts",
+    "build": "tsc",
+    "prisma": "npx prisma generate"
   },
   "keywords": [],
   "author": "leodreco",
