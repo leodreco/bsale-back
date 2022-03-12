@@ -6,6 +6,8 @@ info:
 servers:
   - url: https://leodreco-bsale-back.herokuapp.com
     description: Api
+  - url: http://localhost:3000
+    description: Local
 components:
   schemas:
     FilterObject:
@@ -15,13 +17,14 @@ components:
           type: object
           minProperties: 1
           properties:
-            key:
+            name:
               type: object
-              description: 'key es el nombre del campo a filtrar, se puede agregar varios pero de momento se ejecutan con un AND'
+              description: 'name es el nombre del campo a filtrar, se puede reemplazar con los nombres de campos a filtrar'
               properties:
                 value:
                   type: string
                   description: Valor a buscar
+                  example: bebida
                 matchMode:
                   type: string
                   description: Manera en que se realizara la busqueda
@@ -37,15 +40,18 @@ components:
                     - not
                     - notIn
                     - startsWith
+                  example: startsWith
         sortField:
           type: string
           description: 'Campo por el que se ordenara la data'
+          example: id
         sortOrder:
           type: string
           description: 'Indica si el orden sera ASC o DESC, default ASC'
           enum:
             - desc
             - asc
+          example: asc
     SuccessResponse:
       type: object
       properties:

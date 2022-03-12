@@ -1,5 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 
+
+/**
+ * {
+ *  "filters": [
+ *      "key": {
+ *          "value": "search",
+ *          "matchMode": "contains|endsWith|equals|gt|gte|in|lt|lte|not|notIn|startsWith",
+ *      }
+ *  ],
+ *  "sortField": "key",
+ *  "sortOrder": "desc|asc",
+ *  "skip": 0,
+ *  "take": 12
+ * }
+ */
 function filterMiddleware(req: Request, res: Response, next: NextFunction){
     req.skip = Number(req.query.skip ?? 0);
     req.take = Number(req.query.take ?? 10);
@@ -9,42 +24,24 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
     if(isNaN(req.take)){
         req.take = 10;
     }
-
-    /**
-     * {
-     *  "filters": [
-     *      "key": {
-     *          "value": "search",
-     *          "matchMode": "contains|endsWith|equals|gt|gte|in|lt|lte|not|notIn|startsWith",
-     *      }
-     *  ],
-     *  "sortField": "key",
-     *  "sortOrder": "desc|asc",
-     * }
-     */
     if(!!req.query.filters){
-        let lazy: any = {};
-        try{
-            lazy = JSON.parse(String(req.query.filters));
-        }catch(e){
-            return res.status(400).json({
-                success: false,
-                message: 'Filtros no válidos',
-            });
-        }
-        if(!!lazy.filters){
+        if(!!req.query.filters){
+            let lazy: any = req.query.filters;
             req.filters = {};
-            for(let fieldName in lazy.filters){
-                let filter = lazy.filters[fieldName];
+            for(let fieldName in lazy){
+                let filter = lazy[fieldName];
                 req.filters[fieldName] = {};
                 req.filters[fieldName][filter.matchMode] = Number.isNaN(filter.value) ? Number(filter.value) : filter.value;
             }
         }
-        if(!!lazy.sortField){
+
+        if(!!req.query.sortField){
+            let sortField: string = req.query.sortField.toString();
             req.orderBy = {};
-            req.orderBy[lazy.sortField] = 'asc';
-            if(!!lazy.sortOrder){
-                req.orderBy[lazy.sortField] = lazy.sortOrder;
+            req.orderBy[sortField] = 'asc';
+            if(!!req.query.sortOrder){
+                let sortOrder: string = req.query.sortOrder.toString();
+                req.orderBy[sortField] = sortOrder;
             }
         }
     }
