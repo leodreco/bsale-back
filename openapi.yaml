@@ -8,6 +8,44 @@ servers:
     description: Api
 components:
   schemas:
+    FilterObject:
+      type: object # Se tiene que convertir a string con JSON.stringify
+      properties:
+        filters:
+          type: object
+          minProperties: 1
+          properties:
+            key:
+              type: object
+              description: 'key es el nombre del campo a filtrar, se puede agregar varios pero de momento se ejecutan con un AND'
+              properties:
+                value:
+                  type: string
+                  description: Valor a buscar
+                matchMode:
+                  type: string
+                  description: Manera en que se realizara la busqueda
+                  enum:
+                    - contains
+                    - endsWith
+                    - equals
+                    - gt
+                    - gte
+                    - in
+                    - lt
+                    - lte
+                    - not
+                    - notIn
+                    - startsWith
+        sortField:
+          type: string
+          description: 'Campo por el que se ordenara la data'
+        sortOrder:
+          type: string
+          description: 'Indica si el orden sera ASC o DESC, default ASC'
+          enum:
+            - desc
+            - asc
     SuccessResponse:
       type: object
       properties:
@@ -61,6 +99,14 @@ components:
         price: 1490
         discount: 20
         category: 1
+  parameters:
+    filterParam:
+      name: filter
+      in: query
+      description: Filtro string que debe ser un json válido
+      required: false
+      schema:
+        $ref: '#/components/schemas/FilterObject'
 paths:
   /api/category:
     get: 

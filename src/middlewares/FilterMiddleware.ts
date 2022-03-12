@@ -19,7 +19,7 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
      *      }
      *  ],
      *  "sortField": "key",
-     *  "sordOrder": "desc|asc",
+     *  "sortOrder": "desc|asc",
      * }
      */
     if(!!req.query.filters){
@@ -42,7 +42,7 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
         }
         if(!!lazy.sortField){
             req.orderBy = {};
-            req.orderBy[lazy.sortField] = 'desc';
+            req.orderBy[lazy.sortField] = 'asc';
             if(!!lazy.sortOrder){
                 req.orderBy[lazy.sortField] = lazy.sortOrder;
             }
