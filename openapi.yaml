@@ -131,6 +131,31 @@ components:
         type: integer
         example: 12
 paths:
+  /api/product:
+    get:
+      description: Listado de productos
+      parameters:
+        - $ref: "#/components/parameters/FilterParam"
+        - $ref: "#/components/parameters/SkipParam"
+        - $ref: "#/components/parameters/TakeParam"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ProductModel'
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/category:
     get: 
       description: Listado de categorias
@@ -150,31 +175,6 @@ paths:
                   data:
                     items:
                       $ref: '#/components/schemas/CategoryModel'
-        400:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-  /api/product:
-    get: 
-      description: Listado de productos
-      parameters:
-        - $ref: "#/components/parameters/FilterParam"
-        - $ref: "#/components/parameters/SkipParam"
-        - $ref: "#/components/parameters/TakeParam"
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/SuccessResponse'
-                properties:
-                  data:
-                    items:
-                      $ref: '#/components/schemas/ProductModel'
         400:
           description: Error
           content:
