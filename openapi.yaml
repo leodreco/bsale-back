@@ -57,6 +57,9 @@ components:
             type: object
         message:
           type: string
+        totalRows:
+          type: integer
+          example: 57
     ErrorResponse:
       type: object
       properties:
@@ -100,17 +103,35 @@ components:
         discount: 20
         category: 1
   parameters:
-    filterParam:
-      name: filter
+    FilterParam:
+      name: filters
       in: query
-      description: Filtro string que debe ser un json válido
+      description: 'Este objeto tiene que mandarse como string con JSON.stringify()'
       required: false
       schema:
         $ref: '#/components/schemas/FilterObject'
+    SkipParam:
+      name: skip
+      description: 'Indica a partir de que registro se traerá información'
+      in: query
+      schema:
+        type: integer
+        example: 0
+    TakeParam:
+      name: take
+      description: 'Indica cuantos registros se traerán en la response'
+      in: query
+      schema:
+        type: integer
+        example: 12
 paths:
   /api/category:
     get: 
       description: Listado de categorias
+      parameters:
+        - $ref: "#/components/parameters/FilterParam"
+        - $ref: "#/components/parameters/SkipParam"
+        - $ref: "#/components/parameters/TakeParam"
       responses:
         200:
           description: Success
@@ -132,6 +153,10 @@ paths:
   /api/product:
     get: 
       description: Listado de productos
+      parameters:
+        - $ref: "#/components/parameters/FilterParam"
+        - $ref: "#/components/parameters/SkipParam"
+        - $ref: "#/components/parameters/TakeParam"
       responses:
         200:
           description: Success
