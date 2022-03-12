@@ -11,7 +11,7 @@ servers:
 components:
   schemas:
     FilterObject:
-      type: object # Se tiene que convertir a string con JSON.stringify
+      type: object
       properties:
         filters:
           type: object
@@ -112,7 +112,7 @@ components:
     FilterParam:
       name: filters
       in: query
-      description: 'Este objeto tiene que mandarse como string con JSON.stringify()'
+      description: 'Filtros con el que se buscara en la db'
       required: false
       schema:
         $ref: '#/components/schemas/FilterObject'
