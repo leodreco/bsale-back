@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { isNumberObject } from 'util/types';
 
 function filterMiddleware(req: Request, res: Response, next: NextFunction){
     req.skip = Number(req.query.skip ?? 0);

@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Bsale back
+  description: Api para prueba de bsale
+  version: 1.0.0
+# servers:
+#   - url: https://api
+#     description: Api
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      example:
+        success: false
+        message: Error
+    CategoryModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      example:
+        id: 1
+        name: bebida energetica
+    ProductModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url_image:
+          type: string
+        price:
+          type: number
+        discount:
+          type: integer
+        category:
+          type: integer
+      example:
+        id: 1
+        name: ENERGETICA MR BIG
+        url_image: "https://dojiw2m9tvv09.cloudfront.net/11132/product/misterbig3308256.jpg"
+        price: 1490
+        discount: 20
+        category: 1
+paths:
+  /api/category:
+    get: 
+      description: Listado de categorias
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                properties:              
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CategoryModel'
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/product:
+    get: 
+      description: Listado de productos
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ProductModel'
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
