@@ -3,9 +3,9 @@ info:
   title: Bsale back
   description: Api para prueba de bsale
   version: 1.0.0
-# servers:
-#   - url: https://api
-#     description: Api
+servers:
+  - url: https://leodreco-bsale-back.herokuapp.com
+    description: Api
 components:
   schemas:
     SuccessResponse:
