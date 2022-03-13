@@ -1,7 +1,7 @@
 # bsale-back
 
 Api rest en typescript con express.js y el ORM Prisma.js
-Filtros, paginación
+Filtros, paginación.
 
 Proyecto front: https://github.com/leodreco/bsale-front
 
@@ -28,4 +28,4 @@ Para agregar tablas y modelos, estos se tienen que definir en /prisma/schema.pri
 
 ## Filtros
 Los filtros en la request se getionan en src/middlewares/FilterMiddleware
-Si se necesita agregar mas variables en el req, modificar el Request en @type/express.d.ts
+Si se necesita agregar mas variables en el req, modificar el Request en @types/express.d.ts
