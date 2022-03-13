@@ -1,6 +1,6 @@
 # bsale-back
 
-Api rest en typescript con express.js y el ORM Prisma.js
+Api rest en typescript con express.js y el ORM Prisma
 Filtros, paginación.
 
 Proyecto front: https://github.com/leodreco/bsale-front
