@@ -34,15 +34,15 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
                 req.filters[fieldName][filter.matchMode] = !isNaN(filter.value) ? Number(filter.value) : filter.value;
             }
         }
+    }
 
-        if(!!req.query.sortField){
-            let sortField: string = req.query.sortField.toString();
-            req.orderBy = {};
-            req.orderBy[sortField] = 'asc';
-            if(!!req.query.sortOrder){
-                let sortOrder: string = req.query.sortOrder.toString();
-                req.orderBy[sortField] = sortOrder;
-            }
+    if(!!req.query.sortField){
+        let sortField: string = req.query.sortField.toString();
+        req.orderBy = {};
+        req.orderBy[sortField] = 'asc';
+        if(!!req.query.sortOrder){
+            let sortOrder: string = req.query.sortOrder.toString();
+            req.orderBy[sortField] = sortOrder;
         }
     }
 
