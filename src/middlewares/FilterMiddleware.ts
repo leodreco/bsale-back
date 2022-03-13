@@ -31,7 +31,7 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
             for(let fieldName in lazy){
                 let filter = lazy[fieldName];
                 req.filters[fieldName] = {};
-                req.filters[fieldName][filter.matchMode] = Number.isNaN(filter.value) ? Number(filter.value) : filter.value;
+                req.filters[fieldName][filter.matchMode] = !isNaN(filter.value) ? Number(filter.value) : filter.value;
             }
         }
 
@@ -45,6 +45,7 @@ function filterMiddleware(req: Request, res: Response, next: NextFunction){
             }
         }
     }
+
     next();
 }
 
