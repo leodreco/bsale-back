@@ -10,6 +10,9 @@ router.get('/', async (req: Request, res: Response) => {
             take: req.take,
             where: req.filters,
             orderBy: req.orderBy,
+            include:{
+                categoryM: true
+            }
         });
     
         let totalRows = await prisma.product.count({
